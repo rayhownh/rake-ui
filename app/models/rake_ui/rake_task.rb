@@ -80,13 +80,13 @@ module RakeUi
       # end
     end
 
-    def call(args: nil, environment: nil)
-      rake_command = build_rake_command(args: args, environment: environment)
+    def call(args: nil)
+      rake_command = build_rake_command(args: args)
 
       rake_task_log = RakeUi::RakeTaskLog.build_new_for_command(
         name: name,
         args: args,
-        environment: environment,
+        environment: nil,
         rake_command: rake_command,
         rake_definition_file: rake_definition_file,
         raker_id: id
@@ -104,20 +104,13 @@ module RakeUi
     end
 
     # returns an invokable rake command
-    # FOO=bar rake create_something[1,2,3]
     # rake create_something[1,2,3]
     # rake create_something
-    def build_rake_command(args: nil, environment: nil)
-      command = ""
-
-      if environment
-        command += "#{environment} "
-      end
-
-      command += "rake #{name}"
+    def build_rake_command(args: nil)
+      command = "rake #{name} "
 
       if args
-        command += "[#{args}]"
+        command += "#{args}"
       end
 
       command
