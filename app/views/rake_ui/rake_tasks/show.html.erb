@@ -16,7 +16,7 @@
     <%= form_with url: rake_task_execute_path(@rake_task.id), method: :post, class: 'full-width-forms', data: {"rake-form": true} do |f| %>
       <label>
         Rake Arguments
-        <%= f.text_field :args, placeholder: "eg: -- --message="hello"" %>
+        <%= f.text_field :args, placeholder: "eg: -- --arg1=\"arg\"" %>
       </label>
 
       <br />
