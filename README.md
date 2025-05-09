@@ -3,33 +3,15 @@ Rake UI is a Rails engine that enables the discovery and execution rake tasks in
 
 ![Example](./README_example.gif)
 
-## Changes in Version 0.1.0
+## Custom Compatibility with Registry
 
-1. **Hosted CSS locally instead of using CDN**:
-   - Downloaded the Vital CSS from the CDN to `app/assets/stylesheets/rake_ui/vital.min.css`
-   - Updated the layout file to use the local stylesheet instead of the CDN link
-
-2. **Moved JavaScript from inline HTML to separate files**:
-   - Created three JavaScript files in `app/assets/javascripts/rake_ui/`:
-     - `table_filterable.js` - For the table filtering functionality
-     - `rake_form_validation.js` - For the rake form validation
-     - `rake_task_log_poller.js` - For the rake task log polling
-   - Created a manifest file `application.js` to include all JavaScript files
-   - Removed all inline JavaScript from the HTML files
-   - Updated the views to use data attributes for JavaScript interaction
-
-3. **Removed environment variables and argument validations**:
+1. **CSP Workarounds**:
+   - Host CSS locally instead of using CDN since we don't allowlist the CDN that hosts the CSS file
+   - Move JavaScript from inline HTML to separate files so since script injections are not allowed
+2. **Registry Rake-Specific Customizations**:
    - Simplified the rake task form by removing environment variables field
    - Removed argument validation logic
-   - Streamlined the rake task execution process
-
-4. **Auto-loading logs when task is finished**:
-   - Updated the log poller to automatically reload the page when a task is finished
-   - Ensures logs are immediately visible without manual refresh
-
-5. **Updated asset pipeline configuration**:
-   - Updated `app/assets/config/rake_ui_manifest.js` to include JavaScript files
-   - Added an initializer in `engine.rb` to precompile the assets
+   - Allow Rake arguments to be compatible with how Registry Rake tasks process args with OptionsParser(e.g: -- --message="hello")  
 
 ## Routes
 
