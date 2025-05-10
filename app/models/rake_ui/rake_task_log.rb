@@ -117,7 +117,7 @@ module RakeUi
     end
 
     def rake_command_with_logging
-      "#{rake_command} 2>&1 >> #{log_file_full_path}"
+      "#{rake_command} 2>&1 | tee -a #{log_file_full_path}"
     end
 
     def file_contents
